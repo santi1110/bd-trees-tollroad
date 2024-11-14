@@ -7,11 +7,12 @@ public class TollRoad {
     private final Map<String, Vehicle> vehiclesByState;
 
     public TollRoad() {
-        // TreeMap for sorting by vehicle description
+
         this.vehiclesByDescription = new TreeMap<>();
 
-        // TreeMap for sorting by state code (characters 1 and 2 of description)
-        Comparator<String> stateComparator = Comparator.comparing(desc -> desc.substring(1, 3));
+        Comparator<String> stateComparator = Comparator
+                .comparing((String desc) -> desc.substring(1, 3)) // Primary: state code
+                .thenComparing(desc -> desc);
         this.vehiclesByState = new TreeMap<>(stateComparator);
     }
 
@@ -32,7 +33,7 @@ public class TollRoad {
         for (Vehicle vehicle : vehiclesByDescription.values()) {
             sb.append(vehicle).append("\n");
         }
-        return sb.toString().trim();  // Remove trailing newline
+        return sb.toString();
     }
 
     public String getVehicleReportByState() {
@@ -40,7 +41,7 @@ public class TollRoad {
         for (Vehicle vehicle : vehiclesByState.values()) {
             sb.append(vehicle).append("\n");
         }
-        return sb.toString().trim();  // Remove trailing newline
+        return sb.toString();
     }
 
     public static void main(String[] args) {
